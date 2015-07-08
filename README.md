@@ -1,5 +1,7 @@
-# star-overflow
+# Star-Overflow
 Stack-Overflow Mock - Group: Sheldon, Ben, Lowell
+####[Trello Board](https://trello.com/b/khjN1tud/stack-overflow-mock)
+####[Slack Channel](https://copypastateam.slack.com)
 ## Database Schema:
 ![alt tag](database.jpg)
 ##Tuesday:
