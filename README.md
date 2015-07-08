@@ -1,6 +1,7 @@
 # star-overflow
 Stack-Overflow Mock - Group: Sheldon, Ben, Lowell
-
+## Database Schema:
+![alt tag](database.jpg)
 ##Tuesday:
 Working agreements: 
   - All in on Friday (work late to front load work)
