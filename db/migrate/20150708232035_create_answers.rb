@@ -3,6 +3,7 @@ class CreateAnswers < ActiveRecord::Migration
     create_table :answers do |t|
       t.text :text, null: false
       t.references :question
+      t.references :user
 
       t.timestamps null: false
     end
