@@ -9,8 +9,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    # user = User.find(session[:user_id])
-    @question = Question.create(question_params)
+    user = User.find(session[:user_id])
+    @question = user.questions.create(question_params)
     redirect_to question_path(@question)
   end
 
@@ -19,7 +19,15 @@ class QuestionsController < ApplicationController
   end
 
   def edit
-    @question = Question.find(params[:question_id])
+    @question = Question.find(params[:id])
+  end
+
+  def update
+    @question = Question.find(params[:id])
+    @question.title = params[:question][:title]
+    @question.text = params[:question][:text]
+    @question.save
+    redirect_to questions_path
   end
 
   private
