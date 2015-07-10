@@ -4,8 +4,8 @@
 
   <% if session[:user_id] == answer.user_id %>
     <div>
-      <%= link_to "edit", edit_answer_path(answer.id)%>
-      <%= link_to "delete", answer_path(answer.id), method: :delete %>
+      <%= link_to "edit", edit_question_answer_path(id: answer.id, question_id: answer.question_id)%>
+      <%= link_to "delete", question_answer_path(id: answer.id, question_id: answer.question_id), method: :delete %>
     </div>
   <% end %>
 </div>

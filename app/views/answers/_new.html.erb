@@ -1,7 +1,6 @@
-<%= form_for answer do |f| %>
-  <div><%= f.label :text %></div>
-  <div><%= f.text_field :text %></div>
-  <div><%= f.hidden_field :user_id, value: user_id %></div>
-  <div><%= f.hidden_field :question_id, value: question_id %></div>
+<%= form_for answer, url: question_answers_path(question.id) do |f| %>
+  <div><%= f.label :text %>  <%= f.text_field :text %></div>
+  <div><%= f.hidden_field :user_id, value: session[:user_id] %></div>
+  <div><%= f.hidden_field :question_id, value: question.id %></div><br>
   <div><%= f.submit 'post' %></div>
 <% end %>

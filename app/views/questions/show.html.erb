@@ -1,18 +1,29 @@
 
 <h1><%= @question.title %></h1>
 <p><%= @question.text %></p>
-<p><% if @question.user_id != session[:user_id] %><%= link_to "Up Vote!", question_votes_path(question_id: @question.id, direction: "up", type: "question"), method: 'post' %>  ||  <%= link_to "Down Vote!", question_votes_path(question_id: @question.id, direction: "down", type: "question"), method: 'post' %> || <% end %> <%=@question.total%> votes ||</p>
-
+<p><% if @question.user_id != session[:user_id] %><%= link_to "Up Vote!", question_votes_path(question_id: @question.id, direction: "up", type: "question"), method: 'post' %>  ||  <%= link_to "Down Vote!", question_votes_path(question_id: @question.id, direction: "down", type: "question"), method: 'post' %> || <% end %> <%=@question.total%> votes || </p>
+<h4>Comments</h4>
 <% @question.comments.each do |c| %>
-  <p> <%= c.text %>  </p>
-  <%= link_to "delete", [@question, c], :method  => :delete %>
+  <p><%= c.user.username %> : <%= c.text %>
+  <%= link_to "delete", [@question, c], :method  => :delete %></p>
 <% end %>
 
+<h5>Add comment:</h5>
 <%= form_for [@question, @comment] do |f|%>
   <%= f.label :comment %>
   <%= f.text_field :text %><br><br>
   <%= f.submit 'Comment!' %>
 <% end %>
 
+<h4>Answers:</h4>
+<% @question.answers.each do |ans| %>
+  <%= render partial: "answers/show", locals: {answer: ans} %>
+<% end %>
+
+<h5>Submit an answer!</h5>
+<% if @question.user_id != session[:user_id] %>
+  <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
+<% end %>
+<br>
 
 <%= link_to "Return to Questions!", questions_path%>
