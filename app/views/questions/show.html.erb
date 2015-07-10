@@ -1,4 +1,15 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.text %></p>
 
+<% @question.comments.each do |c| %>
+  <p> <%= c.text %>  </p>
+  <%= link_to "delete", [@question, c], :method  => :delete %>
+<% end %>
+
+<%= form_for [@question, @comment] do |f|%>
+  <%= f.label :comment %>
+  <%= f.text_field :text %><br><br>
+  <%= f.submit 'Comment!' %>
+<% end %>
+
 <%= link_to "Return to Questions!", questions_path%>
