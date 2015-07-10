@@ -1,8 +1,9 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.text %></p>
 
-<% @comments.each do |c| %>
+<% @question.comments.each do |c| %>
   <p> <%= c.text %>  </p>
+  <%= link_to "delete", [@question, c], :method  => :delete %>
 <% end %>
 
 <%= form_for [@question, @comment] do |f|%>
