@@ -3,8 +3,10 @@
 <%= link_to "Create a new post!", new_question_path%>
 
 <ol><%@questions.each do |question| %>
-    <li><% if question.user_id != session[:user_id] %><%= link_to "Vote for me!", question_vote_path(question.id), method: 'post' %>|| <% end %><%=question.votes.length%> votes ||
+    <br>
+    ----------------------------------
+    <br>
+    <% if question.user_id != session[:user_id] %><%= link_to "Vote for me!", question_vote_path(question.id), method: 'post' %>|| <% end %><%=question.votes.length%> votes ||
       <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
   | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
-
-    <% end %></ol>
+    <% end %>
