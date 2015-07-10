@@ -8,7 +8,8 @@
 </head>
 <body>
   <% if session[:user_id] && current_user%>
-    <%= link_to 'Logout', logout_path, method: 'delete' %>
+  Currently signed in as: <%= User.find(session[:user_id]).username %> ||
+    <%= link_to 'Logout', logout_path, method: 'delete' %> || <%= link_to "Questions", questions_path%>
   <% else %>
     <%= link_to 'Login', login_path %>
     <%= link_to 'Sign Up', new_user_path %>

@@ -18,6 +18,7 @@
 <h4>Answers:</h4>
 <% @question.answers.each do |ans| %>
   <%= render partial: "answers/show", locals: {answer: ans} %>
+  <br>
 <% end %>
 
 <h5>Submit an answer!</h5>
