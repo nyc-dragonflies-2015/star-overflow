@@ -1,0 +1,8 @@
+<br><br><br>
+<%= form_for @question, url: question_path do |q| %>
+  <%= q.label :title %>
+  <%= q.text_field :title %><br><br>
+  <%= q.label :text %>
+  <%= q.text_field :text %><br><br>
+  <%= q.submit "Update Question" %>
+<% end %>
