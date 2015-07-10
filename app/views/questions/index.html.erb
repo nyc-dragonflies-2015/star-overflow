@@ -1,7 +1,9 @@
 <h1>Welcome to the Questions Page</h1>
 
+<%= link_to "Create a new post!", new_question_path%>
+
 <ol><%@questions.each do |question| %>
     <li><%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
-  | <%=link_to "Update Question", edit_question_path(question.id)%><% end %>
+  | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
 
     <% end %></ol>
