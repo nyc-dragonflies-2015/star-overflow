@@ -1,0 +1,4 @@
+<h1>Answer Index</h1>
+<% @answers.each do |answer| %>
+  <%= render partial: 'show', locals: {answer: answer} %> 
+<% end %>
