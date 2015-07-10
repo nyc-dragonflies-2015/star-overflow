@@ -37,6 +37,12 @@ class QuestionsController < ApplicationController
     redirect_to questions_path
   end
 
+  def vote
+    @question = Question.find(params[:question_id])
+    @question.votes.create
+    redirect_to questions_path
+  end
+
   private
 
   def question_params
