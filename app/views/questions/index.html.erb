@@ -2,9 +2,11 @@
 
 <%= link_to "Create a new post!", new_question_path%>
 
+<p><%@questions.each do |question| %> <%=question.title %><br> <% end %></p>
+
 <ol><%@questions.each do |question| %>
     <br>
-    ----------------------------------
+    ----------------------------------------------------------------
     <br>
     <% if question.user_id != session[:user_id] %><%= link_to "Up Vote!", question_vote_path(question_id: question.id, direction: "up"), method: 'post' %>  ||  <%= link_to "Down Vote!", question_vote_path(question_id: question.id, direction: "down"), method: 'post' %> || <% end %><%=question.total%> votes ||
       <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
