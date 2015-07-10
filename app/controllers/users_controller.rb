@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    def new
+  def new
     @user = User.new
     if request.xhr?
       render(partial: 'new', object: @user)
