@@ -15,16 +15,16 @@ class VotesController < ApplicationController
         @question.save
         redirect_to question_path(@question.id)
       end
+    else
+    redirect_to questions_path
     end
-    redirect_to question_path(@question.id)
   end
 
   def user_voted?(question)
-    question.votes.each do |x|
-      if x.user_id == session[:id]
+    votes = question.votes
+    votes.each do |x|
+      if x.user_id == session[:user_id]
         return true
-      else
-        return false
       end
     end
   end
