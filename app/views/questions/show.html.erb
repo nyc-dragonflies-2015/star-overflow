@@ -1,5 +1,7 @@
+
 <h1><%= @question.title %></h1>
 <p><%= @question.text %></p>
+<p><% if @question.user_id != session[:user_id] %><%= link_to "Up Vote!", question_votes_path(question_id: @question.id, direction: "up"), method: 'post' %>  ||  <%= link_to "Down Vote!", question_votes_path(question_id: @question.id, direction: "down"), method: 'post' %> || <% end %> <%=@question.total%> votes ||</p>
 
 <% @question.comments.each do |c| %>
   <p> <%= c.text %>  </p>

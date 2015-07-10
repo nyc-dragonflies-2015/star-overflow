@@ -13,8 +13,6 @@ class VotesController < ApplicationController
       end
       @question.save
       redirect_to question_path(@question.id)
-    else
-
     end
   end
 
