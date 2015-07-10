@@ -15,6 +15,11 @@
   <%= f.submit 'Comment!' %>
 <% end %>
 
+<h4>Answers:</h4>
+<% @question.answers.each do |ans| %>
+  <%= render partial: "answers/show", locals: {answer: ans} %>
+<% end %>
+
 <h5>Submit an answer!</h5>
 <% if @question.user_id != session[:user_id] %>
   <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
