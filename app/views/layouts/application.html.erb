@@ -11,7 +11,7 @@
   <div class="navbar navbar-inverse">
     <% if session[:user_id] && current_user%>
       <%= link_to 'Logout', logout_path, method: 'delete' %>
-      Signed in as: <%= User.find(session[:user_id]).username %>
+      <%= link_to 'Signed in as ' + User.find(session[:user_id]).username, questions_path%>
     <% else %>
       <%= link_to 'Login', login_path %>
       <%= link_to 'Sign Up', new_user_path %>

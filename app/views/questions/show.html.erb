@@ -44,7 +44,7 @@
 <div class="container">
   <% @question.answers.order(total: :desc).each do |ans| %>
   <% if @question.correct_answer == ans.id %>
-    Best Asnwer:
+    Best Answer:
     <%= render partial: "answers/show", locals: {answer: ans} %>
     <div class="container">
       <% ans.comments.each do |c| %>
@@ -55,7 +55,7 @@
     </div>
   <% end %>
 </div>
-
+<hr>
 <div class="container">
   <% @question.answers.order(total: :desc).each do |ans| %>
     <% if @question.correct_answer != ans.id %>
