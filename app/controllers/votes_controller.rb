@@ -38,8 +38,11 @@ class VotesController < ApplicationController
  end
 
  def user_voted?(object_voted_on)
-   votes = object_voted_on.votes
-   votes.each do |x|
+  if object_voted_on.user_id == session[:user_id]
+    return true
+  end
+  votes = object_voted_on.votes
+  votes.each do |x|
      if x.user_id == session[:user_id]
        return true
      end
