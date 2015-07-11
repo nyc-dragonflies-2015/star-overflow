@@ -1,6 +1,7 @@
 <div>
   <div><%= answer.text %></div>
   <div>Posted By: <%= answer.user.username %></div>
+  <div><%= answer.total %> votes</div><br>
 
   <% if session[:user_id] == answer.user_id %>
     <div>
