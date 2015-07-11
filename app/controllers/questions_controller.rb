@@ -5,7 +5,11 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = Question.new
+    if Question.known_user?(session[:user_id]) == false
+      redirect_to login_path
+    else
+      @question = Question.new
+    end
   end
 
   def create
