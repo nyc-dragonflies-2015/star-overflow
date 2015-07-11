@@ -1,11 +1,10 @@
-<h1><%= @question.title %></h1>
+  <h1><%= @question.title %></h1>
 
-<% if @question.user_id != session[:user_id] %>
   <p><%= link_to "Up Vote Question!", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post' %></p>
-  <p><%=@question.total%> votes</p>
-  <p><%= @question.text %></p>
+    <p><%= @question.text %></p>
+    <p>Posted by: <%= @question.user.username %></p>
+    <p><%=@question.total%> votes</p>
   <p><%= link_to "Down Vote Question!", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post' %></p>
-<% end %>
 
 <h4>Comments</h4>
 <% @question.comments.each do |c| %>
@@ -17,12 +16,10 @@
   <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
 
 
+
 <h4>Answers:</h4>
 <% @question.answers.order(total: :desc).each do |ans| %>
-   <p><%= link_to "Up Vote Answer!", answer_votes_path(answer_id: ans.id, direction: "up", type: "answer"), method: 'post' %></p>
   <%= render partial: "answers/show", locals: {answer: ans} %>
-  <p><%= link_to "Down Vote Answer!", answer_votes_path(ans.id, direction: "down", type: "answer"), method: 'post' %></p>
-    <br>
     <% ans.comments.each do |c| %>
       <p><%= c.user.username %> : <%= c.text %></p>
     <% end %>
