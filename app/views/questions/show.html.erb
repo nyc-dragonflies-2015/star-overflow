@@ -3,7 +3,7 @@
 
 <% if @question.user_id != session[:user_id] %>
   <p><%= link_to "Up Vote!", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post' %></p>
-  <p><%=@question.total%></p>
+  <p><%=@question.total%> votes</p>
   <p><%= link_to "Down Vote!", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post' %></p>
 <% end %>
 
@@ -14,7 +14,11 @@
 <% end %>
 
 <h5>Add comment:</h5>
+  <% if session[:user_id] != nil %>
   <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
+  <%else %>
+  You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!
+  <%end%>
 
 
 <h4>Answers:</h4>
@@ -23,12 +27,20 @@
     <% ans.comments.each do |c| %>
       <p><%= c.user.username %> : <%= c.text %></p>
     <% end %>
-    <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+    <% if session[:user_id] != nil %>
+      <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+    <%else %>
+      <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!</p><br>
+    <%end%>
 <% end %>
 
 <h5>Submit an answer!</h5>
-<% if @question.user_id != session[:user_id] %>
-  <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
+<% if session[:user_id] == nil %>
+  <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add an answer!</p><br>
+<%else%>
+  <% if @question.user_id != session[:user_id] %>
+    <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
+  <% end %>
 <% end %>
 <br>
 
