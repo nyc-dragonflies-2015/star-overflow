@@ -5,7 +5,8 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    if Question.known_user?(session[:user_id]) == false
+
+    if session[:user_id] == nil
       redirect_to login_path
     else
       @question = Question.new
