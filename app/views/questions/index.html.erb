@@ -1,14 +1,35 @@
 <div class="container">
-<div class="jumbotron">
-  <h1>Star * Overflow</h1>
-  <h3>Click a question to view it, or create your own!</h3>
-  <p>It's as easy as logging in or signing up. Join today to access a community of questions and answers.</p>
-  <%= link_to "Ask a Question!", new_question_path, class: "btn btn-primary" %>
-</div>
-  <%@questions.each do |question| %>
-    <hr>
-    <%=question.total%> score || <%= question.comments.length%> comments ||
-        <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
-    | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
-  <% end %>
+  <div class="jumbotron">
+    <h1>Star * Overflow</h1>
+    <h3>Click a question to view it or create your own!</h3>
+    <p>It's as easy as logging in or signing up. Join today to access a community of questions and answers.</p>
+    <%= link_to "Ask a Question!", new_question_path, class: "btn btn-primary" %>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h3>Top Questions:</h3>
+      <%@questions.each do |question| %>
+        <hr>
+        <%=question.total%> score || <%= question.comments.length%> comments ||
+            <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
+        | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
+      <% end %>
+    </div>
+    <div id="ask" class="col-md-4">
+      <div>
+        <h2>How to ask:</h2>
+        <h4>Is your question about programming?</h4>
+        <p>We prefer questions that can be answered, not just discussed.</p>
+        <p>Provide details. Share your research.</p>
+        <p>If your question is about this website, ask it on meta instead.</p>
+      </div>
+      <div>
+        <h2>How to Format:</h2>
+        <p>► put returns between paragraphs</p>
+        <p>► indent code by 4 spaces</p>
+        <p>► basic HTML also allowed</p>
+        <p>► quote by placing " at start of line</p>
+      </div>
+    </div>
+  </div>
 </div>
