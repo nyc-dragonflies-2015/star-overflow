@@ -11,17 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710181905) do
+ActiveRecord::Schema.define(version: 20150711154305) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "answers", force: :cascade do |t|
-    t.text     "text",        null: false
+    t.text     "text",                    null: false
     t.integer  "question_id"
     t.integer  "user_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
+    t.integer  "total",       default: 0
   end
 
   create_table "comments", force: :cascade do |t|
@@ -34,12 +35,13 @@ ActiveRecord::Schema.define(version: 20150710181905) do
   end
 
   create_table "questions", force: :cascade do |t|
-    t.text     "title",                  null: false
-    t.text     "text",                   null: false
+    t.text     "title",                      null: false
+    t.text     "text",                       null: false
     t.integer  "user_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-    t.integer  "total",      default: 0
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "total",          default: 0
+    t.integer  "correct_answer"
   end
 
   create_table "users", force: :cascade do |t|
@@ -48,6 +50,7 @@ ActiveRecord::Schema.define(version: 20150710181905) do
     t.string   "password_digest", null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.text     "bio"
   end
 
   create_table "votes", force: :cascade do |t|

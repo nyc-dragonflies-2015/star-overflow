@@ -26,10 +26,16 @@ class QuestionsController < ApplicationController
 
   def update
     @question = Question.find(params[:id])
-    @question.title = params[:question][:title]
-    @question.text = params[:question][:text]
-    @question.save
-    redirect_to questions_path
+    if params[:type] == "correct"
+      @question.correct_answer = params[:answer]
+      @question.save
+      redirect_to question_path(@question.id)
+    else
+      @question.title = params[:question][:title]
+      @question.text = params[:question][:text]
+      @question.save
+      redirect_to questions_path
+    end
   end
 
   def destroy
