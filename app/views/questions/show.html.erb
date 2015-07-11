@@ -1,4 +1,3 @@
-
 <h1><%= @question.title %></h1>
 <p><%= @question.text %></p>
 <p><% if @question.user_id != session[:user_id] %><%= link_to "Up Vote!", question_votes_path(question_id: @question.id, direction: "up", type: "question"), method: 'post' %>  ||  <%= link_to "Down Vote!", question_votes_path(question_id: @question.id, direction: "down", type: "question"), method: 'post' %> || <% end %> <%=@question.total%> votes || </p>
@@ -9,15 +8,16 @@
 <% end %>
 
 <h5>Add comment:</h5>
-<%= form_for [@question, @comment] do |f|%>
-  <%= f.label :comment %>
-  <%= f.text_field :text %><br><br>
-  <%= f.submit 'Comment!' %>
-<% end %>
+  <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
+
 
 <h4>Answers:</h4>
 <% @question.answers.each do |ans| %>
   <%= render partial: "answers/show", locals: {answer: ans} %>
+    <% ans.comments.each do |c| %>
+      <p><%= c.user.username %> : <%= c.text %></p>
+    <% end %>
+    <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
 <% end %>
 
 <h5>Submit an answer!</h5>
