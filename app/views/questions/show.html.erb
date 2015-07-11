@@ -40,6 +40,7 @@
 <div class="container">
   <% @question.answers.order(total: :desc).each do |ans| %>
   <% if @question.correct_answer == ans.id %>
+    Best Asnwer:
     <%= render partial: "answers/show", locals: {answer: ans} %>
     <div class="container">
       <% ans.comments.each do |c| %>
@@ -51,19 +52,17 @@
   <% end %>
 </div>
 
-other answers:
-
 <div class="container">
   <% @question.answers.order(total: :desc).each do |ans| %>
     <% if @question.correct_answer != ans.id %>
-    <%= render partial: "answers/show", locals: {answer: ans} %>
-
-      <% ans.comments.each do |c| %>
-        <p><%= c.user.username %> : <%= c.text %></p>
-      <% end %>
-
-      <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
-      <% end %>
+      <%= render partial: "answers/show", locals: {answer: ans} %>
+      <div class="container">
+        <% ans.comments.each do |c| %>
+          <p><%= c.user.username %> : <%= c.text %></p>
+        <% end %>
+        <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+      </div>
+    <% end %>
   <% end %>
 </div>
 
