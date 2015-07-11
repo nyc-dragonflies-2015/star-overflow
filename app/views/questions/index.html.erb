@@ -1,12 +1,14 @@
-<h1>Welcome to the Questions Page</h1>
-
-<%= link_to "Create a new post!", new_question_path%>
-
-<ol><%@questions.each do |question| %>
-    <br>
-    --------------------------------------------------------------------------------------------------
-    <br>
+<div class="container">
+<div class="jumbotron">
+  <h1>Star * Overflow</h1>
+  <h3>Click a question to view it, or create your own!</h3>
+  <p>It's as easy as logging in or signing up. Join today to access a community of questions and answers.</p>
+  <%= link_to "Ask a Question!", new_question_path, class: "btn btn-primary" %>
+</div>
+  <%@questions.each do |question| %>
+    <hr>
     <%=question.total%> score || <%= question.comments.length%> comments ||
-      <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
-  | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
-    <% end %>
+        <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
+    | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
+  <% end %>
+</div>

@@ -4,7 +4,7 @@
       <h1><%= @question.title %></h1>
     </div>
     <div class="col-md-3">
-      <p>Posted by: <%= @question.user.username %></p>
+      <h5>Posted By: <%= @question.user.username %></h5>
     </div>
   </div>
 </div>
@@ -16,14 +16,16 @@
       <p><%=@question.total%> votes</p>
       <%= link_to "", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post', class: "glyphicon glyphicon-chevron-down" %>
     </div>
-    <div class="col-md-11">
+    <div class="col-md-7">
       <h4><%= @question.text %></h4>
     </div>
   </div>
 </div>
 
 <div class="container">
-  <div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
     <% @question.comments.each do |c| %>
       <p><%= c.user.username %> : <%= c.text %>
       <%= link_to "delete", [@question, c], :method  => :delete %></p>
@@ -33,6 +35,7 @@
     <%else %>
       You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!
     <%end%>
+    </div>
   </div>
 </div>
 
@@ -44,44 +47,81 @@
 <div class="container">
   <% @question.answers.order(total: :desc).each do |ans| %>
   <% if @question.correct_answer == ans.id %>
-    Best Answer:
-    <%= render partial: "answers/show", locals: {answer: ans} %>
-    <div class="container">
-      <% ans.comments.each do |c| %>
-        <p><%= c.user.username %> : <%= c.text %></p>
-      <% end %>
-        <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-8">
+        <p id="accepted" class="glyphicon glyphicon-ok"></p>
+        <%= render partial: "answers/show", locals: {answer: ans} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8"><br>
+        <% ans.comments.each do |c| %>
+          <p class="q-comment"><%= c.user.username %> : <%= c.text %></p>
+        <% end %>
+        <% if session[:user_id] != nil %>
+          <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+        <% else %>
+          <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!</p><br>
+        <% end %>
+      </div>
       <% end %>
     </div>
   <% end %>
 </div>
+
 <hr>
+
 <div class="container">
   <% @question.answers.order(total: :desc).each do |ans| %>
     <% if @question.correct_answer != ans.id %>
-      <%= render partial: "answers/show", locals: {answer: ans} %>
-      <div class="container">
-        <% ans.comments.each do |c| %>
-          <p><%= c.user.username %> : <%= c.text %></p>
-        <% end %>
-        <% if session[:user_id] != nil %>
-          <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
-        <%else %>
-          <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!</p><br>
-        <%end%>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <%= render partial: "answers/show", locals: {answer: ans} %>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8"><br>
+            <% ans.comments.each do |c| %>
+              <p class="a-comment"><%= c.user.username %> : <%= c.text %></p>
+            <% end %>
+            <% if session[:user_id] != nil %>
+              <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+            <%else %>
+              <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!</p><br>
+            <%end%>
+          </div>
+        </div>
       </div>
     <% end %>
   <% end %>
 </div>
 
 <hr>
+
 <div class="container">
-  <h5>Your Answer:</h5>
-  <% if session[:user_id] == nil %>
-    <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add an answer!</p><br>
-  <%else%>
-      <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
-  <% end %>
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Your Answer:</h4>
+      <% if session[:user_id] == nil %>
+        <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add an answer!</p><br>
+      <%else%>
+          <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <h4>When answering a question:</h4>
+      <hr>
+      <ul>
+        <li class="glyphicon glyphicon-wrench">  Please be as ACTIONABLE as possible giving reference to specific steps a user can take to resolve the question.</li>
+        <li class="glyphicon glyphicon-screenshot">  Please be as SPECIFIC as possible, giving examples, links, or references for a user to have in resolving the question</li>
+        <li class="glyphicon glyphicon-heart">  Please be KIND in your answer. Do not be a troll. Do not scoff at bad questions. Help people find answers to their problems</li>
+      </ul>
+    </div>
+  </div>
 </div>
 
 <hr>
@@ -89,5 +129,3 @@
 <div class="container">
   <%= link_to "Return to Questions!", questions_path%>
 </div>
-
-
