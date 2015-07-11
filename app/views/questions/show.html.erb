@@ -80,9 +80,7 @@
   <% if session[:user_id] == nil %>
     <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add an answer!</p><br>
   <%else%>
-    <% if @question.user_id != session[:user_id] %>
       <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
-    <% end %>
   <% end %>
 </div>
 
