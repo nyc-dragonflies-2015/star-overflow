@@ -1,5 +1,21 @@
-<%= link_to 'Back', root_path %>
-<h1>This is the Profile Page</h1>
-<img src="http://lorempixel.com/400/200/people">
-<h3>Show Questions:</h3>
-<h3>Show Answers:</h3>
+<div class="container">
+  <h1>Hey, <%= @user.username %>! What's up?</h1><br>
+  <div class="row">
+    <div class="col-md-4">
+      <img src="http://lorempixel.com/200/200/people">
+    </div>
+    <div id="ask" class="col-md-8">
+      <h3>Your Questions:</h3>
+      <% @user.questions.each do |q| %>
+        <p> <%= link_to q.title, question_path(q.id) %> </p>
+      <% end %>
+      <h3>Your Answers:</h3>
+      <% answered_questions.each do |a_ques| %>
+        <p> <%= link_to a_ques.title, question_path(a_ques.id) %> </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+
+  </div>
+</div>
