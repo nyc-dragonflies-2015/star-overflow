@@ -18,7 +18,7 @@
 
 
 <h4>Answers:</h4>
-<% @question.answers.each do |ans| %>
+<% @question.answers.order(total: :desc).each do |ans| %>
    <p><%= link_to "Up Vote Answer!", answer_votes_path(answer_id: ans.id, direction: "up", type: "answer"), method: 'post' %></p>
   <%= render partial: "answers/show", locals: {answer: ans} %>
   <p><%= link_to "Down Vote Answer!", answer_votes_path(ans.id, direction: "down", type: "answer"), method: 'post' %></p>
