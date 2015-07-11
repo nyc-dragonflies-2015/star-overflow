@@ -1,6 +1,12 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.text %></p>
-<p><% if @question.user_id != session[:user_id] %><%= link_to "Up Vote!", question_votes_path(question_id: @question.id, direction: "up", type: "question"), method: 'post' %>  ||  <%= link_to "Down Vote!", question_votes_path(question_id: @question.id, direction: "down", type: "question"), method: 'post' %> || <% end %> <%=@question.total%> votes || </p>
+
+<% if @question.user_id != session[:user_id] %>
+  <p><%= link_to "Up Vote!", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post' %></p>
+  <p><%=@question.total%></p>
+  <p><%= link_to "Down Vote!", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post' %></p>
+<% end %>
+
 <h4>Comments</h4>
 <% @question.comments.each do |c| %>
   <p><%= c.user.username %> : <%= c.text %>
