@@ -1,41 +1,71 @@
-<h1><%= @question.title %></h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <h1><%= @question.title %></h1>
+    </div>
+    <div class="col-md-3">
+      <p>Posted by: <%= @question.user.username %></p>
+    </div>
+  </div>
+</div>
 
-  <p><%= link_to "Up Vote Question!", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post' %></p>
-    <p><%= @question.text %></p>
-    <p>Posted by: <%= @question.user.username %></p>
-    <p><%=@question.total%> votes</p>
-  <p><%= link_to "Down Vote Question!", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post' %></p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+      <%= link_to "", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post', class: "glyphicon glyphicon-chevron-up" %>
+      <p><%=@question.total%> votes</p>
+      <%= link_to "", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post', class: "glyphicon glyphicon-chevron-down" %>
+    </div>
+    <div class="col-md-11">
+      <h4><%= @question.text %></h4>
+    </div>
+  </div>
+</div>
 
-<h4>Comments</h4>
-<% @question.comments.each do |c| %>
-  <p><%= c.user.username %> : <%= c.text %>
-  <%= link_to "delete", [@question, c], :method  => :delete %></p>
-<% end %>
+<div class="container">
+  <div class="container">
+    <% @question.comments.each do |c| %>
+      <p><%= c.user.username %> : <%= c.text %>
+      <%= link_to "delete", [@question, c], :method  => :delete %></p>
+    <% end %>
+    <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
+  </div>
+</div>
 
-<h5>Add comment:</h5>
-  <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
---------------------------------------------------------------------
-<h4>Correct Answer:</h4>
-<% @question.answers.order(total: :desc).each do |ans| %>
+<hr>
+<div class="container">
+  <h5> <%= @question.answers.count %> Answers </h5>
+</div>
+
+<div class="container">
+  <% @question.answers.order(total: :desc).each do |ans| %>
   <% if @question.correct_answer == ans.id %>
     <%= render partial: "answers/show", locals: {answer: ans} %>
-    <% ans.comments.each do |c| %>
-      <p><%= c.user.username %> : <%= c.text %></p>
-    <% end %>
-    <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
-    <% end %>
-<% end %>
+    <div class="container">
+      <% ans.comments.each do |c| %>
+        <p><%= c.user.username %> : <%= c.text %></p>
+      <% end %>
+        <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
 --------------------------------------------------------------------
-<h4>Other Answers:</h4>
-<% @question.answers.order(total: :desc).each do |ans| %>
-  <% if @question.correct_answer != ans.id %>
-  <%= render partial: "answers/show", locals: {answer: ans} %>
-    <% ans.comments.each do |c| %>
-      <p><%= c.user.username %> : <%= c.text %></p>
-    <% end %>
-    <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
-    <% end %>
-<% end %><br>
+
+<div class="container">
+  <% @question.answers.order(total: :desc).each do |ans| %>
+    <% if @question.correct_answer != ans.id %>
+    <%= render partial: "answers/show", locals: {answer: ans} %>
+
+      <% ans.comments.each do |c| %>
+        <p><%= c.user.username %> : <%= c.text %></p>
+      <% end %>
+
+      <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+      <% end %>
+  <% end %>
+</div>
+
 --------------------------------------------------------------------
 <h5>Submit an answer!</h5>
 <% if @question.user_id != session[:user_id] %>

@@ -1,5 +1,6 @@
-<%= form_for [answer, @comment] do |f|%>
-  <%= f.label :comment %>
-  <%= f.text_field :text %><br><br>
-  <%= f.submit 'Comment!' %>
-<% end %>
+<div class="container">
+  <%= form_for [answer, @comment] do |f|%>
+    <%= f.text_area :text, :size => "40x3" %>
+    <%= f.submit 'Comment!', class: "btn btn-primary" %>
+  <% end %>
+</div>
