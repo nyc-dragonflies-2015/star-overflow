@@ -11,7 +11,11 @@ Rails.application.routes.draw do
   resources :questions do
     resources :comments, only: [:create, :destroy]
     resources :votes, only: [:create]
-    resources :answers
+  end
+
+  resources :answers do
+    resources :comments, only: [:create, :destroy]
+    resources :votes, only: [:create]
   end
 
 
