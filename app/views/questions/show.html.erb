@@ -14,7 +14,7 @@
 
 <h5>Add comment:</h5>
   <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
-
+--------------------------------------------------------------------
 <h4>Correct Answer:</h4>
 <% @question.answers.order(total: :desc).each do |ans| %>
   <% if @question.correct_answer == ans.id %>
