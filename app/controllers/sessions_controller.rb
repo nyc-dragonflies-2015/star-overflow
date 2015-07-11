@@ -8,9 +8,13 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by(username: session_params[:username])
-    if @user.authenticate(session_params[:password])
-      session[:user_id] = @user.id
-      redirect_to questions_path
+    if @user != nil
+      if @user.authenticate(session_params[:password])
+        session[:user_id] = @user.id
+        redirect_to questions_path
+      else
+        redirect_to new_user_path
+      end
     else
       redirect_to new_user_path
     end
