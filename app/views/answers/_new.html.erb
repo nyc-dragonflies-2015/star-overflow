@@ -1,6 +1,8 @@
-<%= form_for answer do |f| %>
-  <div><%= f.label :text %>  <%= f.text_field :text %></div>
-  <div><%= f.hidden_field :user_id, value: session[:user_id] %></div>
-  <div><%= f.hidden_field :question_id, value: question.id %></div><br>
-  <div><%= f.submit 'post' %></div>
-<% end %>
+<div class="container">
+  <%= form_for answer do |f| %>
+    <div><%= f.text_area :text, :size => "60x8" %></div>
+    <div><%= f.hidden_field :user_id, value: session[:user_id] %></div>
+    <div><%= f.hidden_field :question_id, value: question.id %></div><br>
+    <div><%= f.submit 'post', class: "btn btn-primary" %></div>
+  <% end %>
+</div>

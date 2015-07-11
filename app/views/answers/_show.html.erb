@@ -1,19 +1,26 @@
-<div>
-  <p><%= link_to "Up Vote Answer!", answer_votes_path(answer_id: answer.id, direction: "up", type: "answer"), method: 'post' %></p>
-  <div><%= answer.text %></div>
-  <div>Posted By: <%= answer.user.username %></div>
-  <div><%= answer.total %> votes</div>
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+      <%= link_to "", answer_votes_path(answer_id: answer.id, direction: "up", type: "answer"), method: 'post', class: "glyphicon glyphicon-chevron-up" %>
+      <p><%= answer.total %> votes</p>
+      <%= link_to "", answer_votes_path(answer.id, direction: "down", type: "answer"), method: 'post', class: "glyphicon glyphicon-chevron-down" %>
+    </div>
 
-  <% if session[:user_id] == answer.user_id %>
-    <div>
-      <%= link_to "Edit Answer", edit_answer_path(answer.id)%>
-      <%= link_to "Delete Answer", answer_path(answer.id), method: :delete %>
+    <div class="col-md-11">
+      <div><%= answer.text %></div>
+      <div>Posted By: <%= answer.user.username %></div>
+
+      <% if session[:user_id] == answer.user_id %>
+        <div>
+          <%= link_to "Edit Answer", edit_answer_path(answer.id)%>
+          <%= link_to "Delete Answer", answer_path(answer.id), method: :delete %>
+        </div>
+      <% end %>
+      <% if session[:user_id] == answer.question.user_id %>
+        <div>
+          <%= link_to "Choose as Correct Answer", question_path(answer.question_id, type: "correct", answer: answer.id), method: 'put'%>
+        </div>
+      <% end %>
     </div>
-  <% end %>
-  <% if session[:user_id] == answer.question.user_id %>
-    <div>
-      <%= link_to "Choose as Correct Answer", question_path(answer.question_id, type: "correct", answer: answer.id), method: 'put'%>
-    </div>
-  <% end %>
-  <p><%= link_to "Down Vote Answer!", answer_votes_path(answer.id, direction: "down", type: "answer"), method: 'post' %></p>
+  </div>
 </div>
