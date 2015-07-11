@@ -1,4 +1,4 @@
-  <h1><%= @question.title %></h1>
+<h1><%= @question.title %></h1>
 
   <p><%= link_to "Up Vote Question!", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post' %></p>
     <p><%= @question.text %></p>
