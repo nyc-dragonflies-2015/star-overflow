@@ -16,7 +16,7 @@
 
 // comments
 $(document).ready(function() {
-  $('#new_comment').on('submit', function(e) {
+  $('.new_comment').on('submit', function(e) {
     e.preventDefault();
     var target = e.target
 
@@ -26,7 +26,7 @@ $(document).ready(function() {
     })
     .done(function(data, e) {
       $(target).find('#comment_text').val("");
-      $(target).parent().parent().find('.question-comments').append(data);
+      $(target).parent().parent().find('.comments').append(data);
     })
     .fail(function() {
       alert('failed to post comment');
