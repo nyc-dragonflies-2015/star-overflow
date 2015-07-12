@@ -1,5 +1,23 @@
-<%= link_to 'Back', root_path %>
-<h1>This is the Profile Page</h1>
-<img src="http://lorempixel.com/400/200/people">
-<h3>Show Questions:</h3>
-<h3>Show Answers:</h3>
+<div class="container">
+  <h1>Hey, <%= @user.username %>! What's up?</h1><br>
+  <div class="row">
+    <div id="prof-pic" class="col-md-2">
+      <img src="http://lorempixel.com/100/100/people">
+    </div>
+    <div class="col-md-4">
+      <h3>About Me:</h3>
+      <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur</p>
+    </div>
+    <div id="ask" class="col-md-4">
+      <h3>Your Questions:</h3>
+      <% @user.questions.each do |q| %>
+        <p> <%= link_to q.title, question_path(q.id) %> </p>
+      <% end %>
+      <h3>Your Answers:</h3>
+      <% answered_questions.each do |a_ques| %>
+        <p> <%= link_to a_ques.title, question_path(a_ques.id) %> </p>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+</div>

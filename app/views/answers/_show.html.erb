@@ -6,8 +6,8 @@
       <%= link_to "", answer_votes_path(answer.id, direction: "down", type: "answer"), method: 'post', class: "glyphicon glyphicon-chevron-down" %>
     </div>
 
-    <div class="col-md-11">
-      <div><%= answer.text %></div>
+    <div class="col-md-7">
+      <div><h4><%= answer.text %></h4></div>
       <div>Posted By: <%= answer.user.username %></div>
 
       <% if session[:user_id] == answer.user_id %>
