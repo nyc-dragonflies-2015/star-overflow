@@ -13,3 +13,23 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+
+// comments
+$(document).ready(function() {
+  $('#new_comment').on('submit', function(e) {
+    e.preventDefault();
+    var target = e.target
+
+    $.ajax(e.currentTarget.action, {
+      method: 'POST',
+      data: $(this).serialize()
+    })
+    .done(function(data, e) {
+      $(target).find('#comment_text').val("");
+      $(target).parent().parent().find('.question-comments').append(data);
+    })
+    .fail(function() {
+      alert('failed to post comment');
+    });
+  });
+});
