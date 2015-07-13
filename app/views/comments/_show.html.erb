@@ -1,0 +1,8 @@
+<div class='comment_<%= comment.id %>'>
+  <p>
+    <%= comment.user.username %> : <%= comment.text %>
+    <%= form_for [target, comment], method: :delete do |f| %>
+      <%= f.submit 'delete' %>
+    <% end %>
+  </p>
+</div>
