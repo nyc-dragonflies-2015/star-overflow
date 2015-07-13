@@ -16,20 +16,37 @@
 
 // comments
 $(document).ready(function() {
-  $('.new_comment').on('submit', function(e) {
+  $(document).on('submit', '.new_comment', function(e) {
     e.preventDefault();
     var target = e.target
 
-    $.ajax(e.currentTarget.action, {
+    $.ajax(target.action, {
       method: 'POST',
       data: $(this).serialize()
     })
-    .done(function(data, e) {
+    .done(function(data) {
       $(target).find('#comment_text').val("");
       $(target).parent().parent().find('.comments').append(data);
     })
     .fail(function() {
       alert('failed to post comment');
+    });
+  });
+
+  $(document).on('submit', '.edit_comment', function(e) {
+    e.preventDefault();
+    var target = e.target;
+
+    $.ajax(target.action, {
+      method: 'DELETE',
+      data: $(this).serialize()
+    })
+    .done(function(data) {
+      console.log(target)
+      $(target).parent().remove();
+    })
+    .fail(function() {
+      alert('failed to delete comment');
     });
   });
 });

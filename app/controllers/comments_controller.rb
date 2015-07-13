@@ -32,10 +32,17 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find(params[:question_id])
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    redirect_to @question
+    Comment.find(params[:id]).destroy
+
+    if request.xhr?
+      # "render :nothing" didn't work, so I had to render an empty partial.
+      render partial: '/comments/nothing'
+    else
+      params[:answer_id] ? question_id = Answer.find(params[:answer_id]).question_id : question_id = params[:question_id]
+
+      question_id = params[:question_id]
+      redirect_to question_path(question_id)
+    end
   end
 
   private
