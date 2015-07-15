@@ -1,2 +1,4 @@
 <h1>Edit Answer</h1>
+<%# isn't this @user_id info in  the session?  Why not block with a before_action to ensure that
+  the user is logged in and then just assume it's there; DRY out your views %>
 <%= render partial: 'update', locals: {answer: @answer, user_id: @user_id, question_id: @question_id} %>

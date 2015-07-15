@@ -11,6 +11,7 @@
       <%@questions.each do |question| %>
         <hr>
         <%=question.total%> score || <%= question.comments.length%> comments ||
+        <%# what's that conditional for?!?! %>
             <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
         | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
       <% end %>

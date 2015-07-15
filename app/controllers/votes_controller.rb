@@ -1,5 +1,10 @@
 class VotesController < ApplicationController
 
+  # This method is bananas.
+  #
+  # 1.  Really long
+  # 2.  Logic is complex
+
  def create
   if params["type"] == "question"
     @question = Question.find(params[:question_id])
@@ -37,11 +42,14 @@ class VotesController < ApplicationController
   end
  end
 
+ # Couldn't this be on User as User#voted_on?(object) ?
  def user_voted?(object_voted_on)
   if object_voted_on.user_id == session[:user_id]
     return true
   end
   votes = object_voted_on.votes
+
+  # Lowell, there's definitely a better Enumerable to use here.
   votes.each do |x|
      if x.user_id == session[:user_id]
        return true

@@ -1,3 +1,9 @@
+<%# you passed this locals that you don't use, instead you lean on the @variable magic trick... this feels a bit sloppy.
+
+You set up an interface (pass locals) but then don't use it...
+
+%>
+
 <div class="container">
   <%= form_for [@question, @comment] do |f|%>
     <%= f.text_area :text, :size => "70x4" %>
