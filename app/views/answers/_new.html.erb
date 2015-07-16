@@ -1,6 +1,7 @@
 <div class="container">
   <%= form_for answer do |f| %>
     <div><%= f.text_area :text, :size => "60x8" %></div>
+    <%# why do you need this?  if the value's in the session, just extract it in the controller %>
     <div><%= f.hidden_field :user_id, value: session[:user_id] %></div>
     <div><%= f.hidden_field :question_id, value: question.id %></div><br>
     <div><%= f.submit 'post', class: "btn btn-primary" %></div>

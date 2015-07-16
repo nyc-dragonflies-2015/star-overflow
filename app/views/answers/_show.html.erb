@@ -1,6 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-1">
+      <%# can't help but wonder if you could create answer_votes_upvote_path() so that the
+      signal as to whether it's an "up" or a "down" can be implicitly defined by the name
+      of the controller action %>
       <%= link_to "", answer_votes_path(answer_id: answer.id, direction: "up", type: "answer"), method: 'post', class: "glyphicon glyphicon-chevron-up" %>
       <p><%= answer.total %> votes</p>
       <%= link_to "", answer_votes_path(answer.id, direction: "down", type: "answer"), method: 'post', class: "glyphicon glyphicon-chevron-down" %>
@@ -10,14 +13,17 @@
       <div><h4><%= answer.text %></h4></div>
       <div>Posted By: <%= answer.user.username %></div>
 
+      <%# Perfect opp. for a helper.  current_user.owns?(answer) %>
       <% if session[:user_id] == answer.user_id %>
         <div>
           <%= link_to "Edit Answer", edit_answer_path(answer.id)%>
           <%= link_to "Delete Answer", answer_path(answer.id), method: :delete %>
         </div>
       <% end %>
+      <%# Perfect opp. for a helper.  current_user.posed?(question) %>
       <% if session[:user_id] == answer.question.user_id %>
         <div>
+          <%# I dislike this passing of magic strings e.g. "correct"....i think you could preserve some signaling by using a custom non-resourceful route %>
           <%= link_to "Choose as Correct Answer", question_path(answer.question_id, type: "correct", answer: answer.id), method: 'put'%>
         </div>
       <% end %>

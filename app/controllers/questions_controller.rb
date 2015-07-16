@@ -5,7 +5,8 @@ class QuestionsController < ApplicationController
   end
 
   def new
-
+    # I'd love to see this in a method on ApplicationController
+    # (user_is_signed_in?)
     if session[:user_id] == nil
       redirect_to login_path
     else
@@ -13,6 +14,7 @@ class QuestionsController < ApplicationController
     end
   end
 
+  # classy
   def create
     user = User.find(session[:user_id])
     @question = user.questions.create(question_params)
@@ -28,6 +30,15 @@ class QuestionsController < ApplicationController
   def edit
     @question = Question.find(params[:id])
   end
+
+  # The call to this is:
+  #
+  # <%= link_to "Choose as Correct Answer", question_path(answer.question_id,
+  # type: "correct", answer: answer.id), method: 'put'%>
+  #
+  # I think the right method is PATCH, you're updating something that's already
+  # there, not a wholesale replacement (that's just some hard-core REST
+  # dorkery)
 
   def update
     @question = Question.find(params[:id])
